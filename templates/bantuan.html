@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bantuan - Peringkas Teks</title>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f0f4f8;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .nav-link {
+            color: white;
+            margin-left: 1rem;
+            transition: all 0.3s ease;
+        }
+        .nav-link:hover {
+            color: #b19cd9;
+            transform: translateY(-2px);
+        }
+        .section-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .section-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        .icon-circle {
+            background-color: #4a5568;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+    <header style="background-color: #000000;" class="fixed top-0 left-0 w-full flex items-center justify-between h-20 rounded-b-lg px-4 z-50">
+        <div class="flex items-center">
+            <img src="/static/Images/UntarLogo.png" alt="Logo" class="h-16 w-auto">
+        </div>
+        <div class="text-white text-lg font-semibold text-center flex-grow px-4">
+            PERINGKAS TEKS BAHASA BATAK DENGAN METODE BART
+        </div>
+        <nav class="flex items-center">
+            <a href="{{ url_for('Index') }}" class="nav-link"><i class="fas fa-home mr-1"></i> Beranda</a>
+            <a href="{{ url_for('bantuan') }}" class="nav-link"><i class="fas fa-question-circle mr-1"></i> Bantuan</a>
+            <a href="{{ url_for('tentang') }}" class="nav-link"><i class="fas fa-info-circle mr-1"></i> Tentang</a>
+        </nav>
+    </header>
+
+    <main class="container mx-auto mt-24 p-8">
+        <h1 class="text-4xl font-bold mb-8 text-center text-gray-800">Panduan Penggunaan Aplikasi Peringkas Teks</h1>
+        
+        <section class="mb-12 section-card p-6">
+            <h2 class="text-2xl font-semibold mb-6 flex items-center">
+                <div class="icon-circle">
+                    <i class="fas fa-book"></i>
+                </div>
+                Cara Menggunakan
+            </h2>
+            <ol class="list-decimal list-inside space-y-3 text-gray-700">
+                <li class="flex items-start">
+                    <span class="mr-2">1.</span>
+                    <span>Buka halaman utama aplikasi.</span>
+                </li>
+                <li class="flex items-start">
+                    <span class="mr-2">2.</span>
+                    <span>Masukkan teks yang akan diringkas ke dalam kotak input di sebelah kiri.</span>
+                </li>
+                <li class="flex items-start">
+                    <span class="mr-2">3.</span>
+                    <span>Gunakan slider untuk mengatur panjang ringkasan yang diinginkan (antara 100 hingga 1000 karakter).</span>
+                </li>
+                <li class="flex items-start">
+                    <span class="mr-2">4.</span>
+                    <span>Klik tombol "Kirim" untuk memulai proses peringkasan.</span>
+                </li>
+                <li class="flex items-start">
+                    <span class="mr-2">5.</span>
+                    <span>Tunggu hingga proses selesai. Hasil ringkasan akan muncul di kotak sebelah kanan.</span>
+                </li>
+                <li class="flex items-start">
+                    <span class="mr-2">6.</span>
+                    <span>Hasil ringkasan dapat disalin dengan mengklik tombol "Salin teks".</span>
+                </li>
+            </ol>
+        </section>
+
+        <section class="mb-12 section-card p-6">
+            <h2 class="text-2xl font-semibold mb-6 flex items-center">
+                <div class="icon-circle">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                Tips Penggunaan
+            </h2>
+            <ul class="list-disc list-inside space-y-3 text-gray-700">
+                <li class="flex items-start">
+                    <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                    <span>Pastikan teks yang dimasukkan tidak melebihi 10.000 karakter.</span>
+                </li>
+                <li class="flex items-start">
+                    <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                    <span>Untuk hasil terbaik, gunakan teks yang terstruktur dengan baik dan memiliki konten yang jelas.</span>
+                </li>
+                <li class="flex items-start">
+                    <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                    <span>Jika hasil ringkasan tidak sesuai harapan, coba sesuaikan panjang ringkasan menggunakan slider.</span>
+                </li>
+            </ul>
+        </section>
+
+        <section class="section-card p-6">
+            <h2 class="text-2xl font-semibold mb-6 flex items-center">
+                <div class="icon-circle">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                Keterbatasan
+            </h2>
+            <ul class="list-disc list-inside space-y-3 text-gray-700">
+                <li class="flex items-start">
+                    <i class="fas fa-exclamation-circle text-yellow-500 mr-2 mt-1"></i>
+                    <span>Kualitas ringkasan bergantung pada kualitas dan struktur teks input.</span>
+                </li>
+                <li class="flex items-start">
+                    <i class="fas fa-exclamation-circle text-yellow-500 mr-2 mt-1"></i>
+                    <span>Aplikasi mungkin memerlukan waktu beberapa saat untuk memproses teks yang panjang.</span>
+                </li>
+            </ul>
+        </section>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+</body>
+
+</html>

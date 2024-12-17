@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tentang - Peringkas Teks</title>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f4f8;
+            color: #000000;
+        }
+
+        .nav-link {
+            color: white;
+            margin-left: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #b19cd9;
+            transform: translateY(-2px);
+        }
+
+        .card {
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-img {
+            transition: all 0.3s ease;
+        }
+
+        .profile-img:hover {
+            transform: scale(1.05);
+        }
+
+        .section-title {
+            position: relative;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 2px;
+            bottom: 0;
+            left: 25%;
+            background: #000000;
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .feature-list li, .tech-list li {
+            position: relative;
+            padding-left: 1.5em;
+            margin-bottom: 0.5em;
+        }
+
+        .feature-list li::before, .tech-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #000000;
+        }
+    </style>
+</head>
+
+<body class="flex flex-col min-h-screen">
+    <header style="background-color: #000000;" class="fixed top-0 left-0 w-full flex items-center justify-between h-20 rounded-b-lg px-4 z-50">
+        <div class="flex items-center">
+            <img src="/static/Images/UntarLogo.png" alt="Logo" class="h-16 w-auto">
+        </div>
+        <div class="text-white text-lg font-semibold text-center flex-grow px-4">
+            PERINGKAS TEKS BAHASA BATAK DENGAN METODE BART
+        </div>
+        <nav class="flex items-center">
+            <a href="{{ url_for('Index') }}" class="nav-link"><i class="fas fa-home mr-1"></i> Beranda</a>
+            <a href="{{ url_for('bantuan') }}" class="nav-link"><i class="fas fa-question-circle mr-1"></i> Bantuan</a>
+            <a href="{{ url_for('tentang') }}" class="nav-link"><i class="fas fa-info-circle mr-1"></i> Tentang</a>
+        </nav>
+    </header>
+
+    <main class="flex-grow container mx-auto mt-24 px-4 py-8">
+        <h1 class="text-3xl md:text-4xl font-bold mb-12 text-center animate-fade-in">Tentang Aplikasi Peringkas Teks</h1>
+        
+        <section class="mb-16 bg-white shadow-lg rounded-lg p-6 md:p-8 card animate-fade-in">
+            <h2 class="text-xl md:text-2xl font-semibold mb-6 section-title">Apa itu Peringkas Teks?</h2>
+            <p class="leading-relaxed">
+                Peringkas Teks adalah sebuah aplikasi untuk mengubah teks panjang menjadi ringkasan singkat namun informatif. Dengan memanfaatkan model BART (Bidirectional Auto-Regressive Transformers), aplikasi ini menjadi solusi efektif untuk meningkatkan efisiensi dalam pengolahan informasi, membantu pengguna menghemat waktu dan meningkatkan produktivitas.
+            </p>
+        </section>
+
+        <div class="grid md:grid-cols-2 gap-8 mb-16">
+            <div class="bg-white shadow-lg rounded-lg p-6 md:p-8 card animate-fade-in">
+                <h2 class="text-xl md:text-2xl font-semibold mb-6 section-title">Teknologi Utama</h2>
+                <ul class="tech-list">
+                    <li>BART: Model untuk pemrosesan bahasa alami</li>
+                    <li>Flask: Framework Python untuk pengembangan backend</li>
+                    <li>JavaScript, HTML, CSS: Pengembangan frontend</li>
+                </ul>
+            </div>
+            <div class="bg-white shadow-lg rounded-lg p-6 md:p-8 card animate-fade-in">
+                <h2 class="text-xl md:text-2xl font-semibold mb-6 section-title">Fitur Unggulan</h2>
+                <ul class="feature-list">
+                    <li>Peringkasan teks otomatis</li>
+                    <li>Penyesuaian panjang ringkasan yang fleksibel</li>
+                    <li>Fitur salin hasil ringkasan dengan satu klik</li>
+                </ul>
+            </div>
+        </div>
+
+        <section class="mb-16 bg-white shadow-lg rounded-lg p-6 md:p-8 card animate-fade-in">
+            <h2 class="text-xl md:text-2xl font-semibold mb-8 section-title">Pengembang Aplikasi</h2>
+            <div class="flex flex-col md:flex-row items-center md:space-x-8">
+                <img src="/static/images/Novita.jpg" alt="Foto Mahasiswa" class="profile-img w-32 h-32 md:w-40 md:h-40 rounded-full mb-6 md:mb-0 object-cover shadow-lg">
+                <div class="space-y-3 text-center md:text-left">
+                    <p class="text-base md:text-lg"><strong>Nama:</strong> Novita Sari Samosir</p>
+                    <p class="text-base md:text-lg"><strong>NIM:</strong> 535210091</p>
+                    <p class="text-base md:text-lg"><strong>Jurusan:</strong> Teknik Informatika</p>
+                    <p class="text-base md:text-lg"><strong>Fakultas:</strong> Teknologi Informasi</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-16 bg-white shadow-lg rounded-lg p-6 md:p-8 card animate-fade-in">
+            <h2 class="text-xl md:text-2xl font-semibold mb-8 section-title">Dosen Pembimbing</h2>
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="flex flex-col items-center text-center">
+                    <img src="/static/images/BuViny.jpg" alt="Foto Dosen Pembimbing 1" class="profile-img w-32 h-32 md:w-40 md:h-40 rounded-full mb-4 object-cover shadow-lg">
+                    <div>
+                        <p class="font-semibold text-base md:text-lg">Dosen Utama:</p>
+                        <p class="text-base md:text-lg">Viny Chirstanti Mawardi S.Kom., M.Kom.</p>
+                    </div>
+                </div>
+                <div class="flex flex-col items-center text-center">
+                    <img src="/static/images/PakTri.jpeg" alt="Foto Dosen Pembimbing 2" class="profile-img w-32 h-32 md:w-40 md:h-40 rounded-full mb-4 object-cover shadow-lg">
+                    <div>
+                        <p class="font-semibold text-base md:text-lg">Dosen Pendamping:</p>
+                        <p class="text-base md:text-lg">Tri Sutrisno S.Si., M.Sc.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-16 bg-white shadow-lg rounded-lg p-6 md:p-8 card animate-fade-in">
+            <h2 class="text-xl md:text-2xl font-semibold mb-6 section-title">Institusi</h2>
+            <div class="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-6">
+                <img src="/static/Images/Untar.png" alt="Logo Untar" class="w-24 md:w-32 h-auto">
+                <p class="text-xl md:text-2xl font-semibold">Universitas Tarumanagara</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-black text-white py-6 mt-auto">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2024 Peringkas Teks - Universitas Tarumanagara. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Interaktivitas tambahan
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'scale(1.02)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+
+</html>

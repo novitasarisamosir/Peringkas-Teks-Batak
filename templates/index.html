@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peringkas Teks</title>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link href="/static/css/jquery-ui.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <style>
+        .loading {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        #loadingIndicator {
+            display: none;
+        }
+
+        .custom-button {
+            background-color: #6f2da8;
+        }
+
+        .custom-button:hover {
+            background-color: #7f00ff;
+        }
+
+        .nav-link {
+            color: white;
+            margin-left: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #b19cd9;
+        }
+
+        .navbar-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            background-color: #000000;
+            height: 5rem;
+        }
+
+        .navbar-border {
+            height: 4px;
+            background-color: #6f2da8;
+        }
+
+        .sidebar {
+            height: calc(100vh - 5rem - 4px);
+            width: 250px;
+            position: fixed;
+            top: calc(5rem + 4px);
+            left: 0;
+            background-color: #000000;
+            border-right: 1px solid #333;
+            overflow-x: hidden;
+            padding-top: 20px;
+        }
+
+        .sidebar a {
+            padding: 6px 8px 6px 16px;
+            text-decoration: none;
+            font-size: 18px;
+            color: white;
+            display: block;
+            transition: color 0.3s ease, background-color 0.3s ease;
+        }
+
+        .sidebar a:hover {
+            color: black;
+            background-color: #e2e8f0;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            padding: 20px 10px;
+            margin-top: calc(5rem + 4px + 20px);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navbar-container">
+        <header class="navbar flex items-center justify-between px-4">
+            <div class="flex items-center">
+                <img src="/static/Images/UntarLogo.png" alt="Logo" class="h-16 w-auto">
+            </div>
+            <div class="text-white text-lg font-semibold text-center flex-grow px-4">
+                PERINGKAS TEKS BAHASA BATAK DENGAN METODE BART
+            </div>
+            <nav class="flex items-center">
+                <a href="{{ url_for('Index') }}" class="nav-link"><i class="fas fa-home mr-1"></i> Beranda</a>
+                <a href="{{ url_for('bantuan') }}" class="nav-link"><i class="fas fa-question-circle mr-1"></i> Bantuan</a>
+                <a href="{{ url_for('tentang') }}" class="nav-link"><i class="fas fa-info-circle mr-1"></i> Tentang</a>
+            </nav>
+        </header>
+        <div class="navbar-border"></div>
+    </div>
+
+    <div class="sidebar">
+        <a href="{{ url_for('Index') }}"><i class="fas fa-file-alt mr-2"></i>Teks</a>
+        <a href="{{ url_for('url_summarize') }}"><i class="fas fa-link mr-2"></i>URL</a>
+    </div>
+
+    <div class="main-content">
+        <section class="flex flex-wrap w-full">
+            <div class="w-full md:w-1/2">
+                <form class="w-full flex flex-col md:h-screen" action="{{url_for('Summarize')}}" method="post" id="summarizeForm">
+                    <textarea class="w-11/12 md:h-3/4 m-2 p-2 border-black rounded-lg border self-center justify-center"
+                        name="data" id="data" cols="30" rows="10" placeholder="Masukkan teks"
+                        required="required"></textarea>
+                    <div class="flex self-center items-center">
+                        <h3 class="mr-2">Panjang ringkasan</h3>
+                        <input type="range" class="m-2" min="100" max="1000" name="maxL" id="maxL" value="500">
+                        <span id="maxLValue" class="ml-2">500</span>
+                    </div>
+                    <div class="flex self-center">
+                        <button id="submitBtn" class="m-1 bg-green-500 hover:bg-blue-700 text-white font-semi-bold py-2 px-4 rounded-lg"
+                            type="submit">Kirim</button>
+                        <button class="m-1 bg-red-500 hover:bg-blue-700 text-white font-semi-bold py-2 px-4 rounded-lg"
+                            type="reset">Hapus</button>
+                    </div>
+                    <div id="loadingIndicator" class="text-center mt-4">
+                        <p>Sedang memproses... Mohon tunggu.</p>
+                        <div class="loader mt-2"></div>
+                    </div>
+                </form>
+            </div>
+            <div class="w-full md:w-1/2">
+                <div class="mt-2 flex flex-col w-full md:h-screen">
+                    <textarea style="background-color: #dcd0ff; border-color: #bf94e4;"
+                        class="w-11/12 rounded-lg p-2 border-2 self-center justify-center md:h-3/4" rows="10"
+                        cols="30" id="result" name="result" readonly placeholder="Hasil ringkasan">{{result}}</textarea>
+                    <button id="copyBtn"
+                        class="m-2 custom-button text-white font-semi-bold py-2 px-4 rounded-lg self-center"
+                        onclick="copyText()">Salin teks</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+    <script>
+        const maxL = document.getElementById('maxL');
+        const maxLValue = document.getElementById('maxLValue');
+        const submitBtn = document.getElementById('submitBtn');
+        const summarizeForm = document.getElementById('summarizeForm');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+
+        maxL.addEventListener('input', function () {
+            maxLValue.textContent = this.value;
+        });
+
+        summarizeForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            submitBtn.classList.add('loading');
+            loadingIndicator.style.display = 'block';
+            this.submit();
+        });
+
+        function copyText() {
+            const resultTextarea = document.getElementById('result');
+            resultTextarea.select();
+            document.execCommand('copy');
+            alert('Teks berhasil disalin!');
+        }
+    </script>
+</body>
+
+</html>
